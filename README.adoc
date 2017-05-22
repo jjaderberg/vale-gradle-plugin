@@ -1,0 +1,10 @@
+= Vale Gradle Plugin
+
+Plugin for running https://valelint.github.io/[ValeLint] as part of a Gradle build.
+
+The plugin will check if the `vale` executable is available in PATH.
+If it is not, the appropriate package will be downloaded from https://github.com/ValeLint/vale/releases.
+
+The plugin will also respect a local `.vale` config file and styles dir.
+If these are missing, bundled config and styles files will be used.
+
