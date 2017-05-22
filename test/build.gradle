@@ -1,0 +1,14 @@
+group 'org.neo4j.doc.build'
+version '1.0-alpha'
+
+buildscript {
+    dependencies {
+        classpath fileTree("${rootProject.buildDir}/pluginsDir")
+    }
+}
+
+apply plugin: 'org.neo4j.doc.build.vale'
+
+vale {
+    verbose = true
+}

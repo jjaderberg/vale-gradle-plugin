@@ -1,0 +1,19 @@
+group 'org.neo4j.doc.build'
+version '1.0-alpha'
+
+gradlePlugin {
+    plugins {
+        vale {
+            id = "org.neo4j.doc.build.vale"
+            implementationClass = "org.neo4j.doc.build.vale.ValePlugin"
+        }
+    }
+}
+
+publishing {
+    publications {
+        valePlugin(MavenPublication) {
+            from components.java
+        }
+    }
+}

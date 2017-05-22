@@ -1,0 +1,20 @@
+group 'org.neo4j.doc.build'
+version '1.0-alpha'
+
+subprojects {
+    apply plugin: 'groovy'
+    apply plugin: 'java-gradle-plugin'
+    apply plugin: 'maven-publish'
+    publishing {
+        repositories {
+            maven {
+                name "maven-plugin-repo"
+                url System.env.ARTIFACTORY_URI
+                credentials {
+                    username System.env.ARTIFACTORY_USERNAME
+                    password System.env.ARTIFACTORY_PASSWORD
+                }
+            }
+        }
+    }
+}

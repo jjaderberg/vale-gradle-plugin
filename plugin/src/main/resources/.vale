@@ -1,0 +1,16 @@
+# Core settings
+StylesPath = styles
+MinAlertLevel = warning # suggestion, warning or error
+
+# Global settings (applied to every syntax)
+[*]
+# List of styles to load
+BasedOnStyles = vale, 18F
+# Style.Rule = {YES, NO} to enable or disable a specific rule
+vale.Editorializing = YES
+# You can also change the level associated with a rule
+vale.Hedging = error
+
+# Syntax-specific settings
+# These overwrite any conflicting global settings
+[*.{md,txt}]

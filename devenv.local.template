@@ -1,0 +1,8 @@
+# Copy me as devenv.local and fill in the missing values
+#
+# Credentials for artifactory repository docs-maven-local
+ARTIFACTORY_URI=
+ARTIFACTORY_USERNAME=
+ARTIFACTORY_PASSWORD=
+
+# vim: set sw=2 ts=2 ft=sh:
