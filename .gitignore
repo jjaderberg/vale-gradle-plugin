@@ -1,6 +1,8 @@
 *~
 \#*
 .cache
+build/
+!src/*build/
 .cache-main
 .cache-main
 .cache-main
