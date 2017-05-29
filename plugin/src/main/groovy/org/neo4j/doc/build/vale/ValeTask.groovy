@@ -8,13 +8,14 @@ class ValeTask extends DefaultTask {
     def setup = new ValeSetup()
     def config = project.extensions.vale
     def valeWorkingDir = "${project.buildDir}/vale"
+
     def valeExecutable = "vale"
 
     @TaskAction
     def validate() {
         prepare()
         project.exec {
-            executable 'vale'
+            executable valeExecutable
             workingDir valeWorkingDir
             args([
                     "--glob=${config.glob}",
