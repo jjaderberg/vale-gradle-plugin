@@ -90,10 +90,22 @@ class ValeTask extends DefaultTask {
     }
 
     private void processResult(String output) {
-        def lineNo = 0
         output.split(System.lineSeparator()).each {
-            logger.warn("${++lineNo}  $it")
-
+            def parts = it.split(/\s{2,}/)
+            if (parts.length > 1) {
+                switch (parts[1]) {
+                    case "warning":
+                        logger.warn(it)
+                        break
+                    case "error":
+                        logger.error(it)
+                        break
+                    default:
+                        logger.quiet(it)
+                }
+            } else {
+                logger.quiet(it)
+            }
         }
     }
 
