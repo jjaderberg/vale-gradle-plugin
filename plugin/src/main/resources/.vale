@@ -1,5 +1,5 @@
 # Core settings
-StylesPath = styles
+StylesPath = vale_styles
 MinAlertLevel = warning # suggestion, warning or error
 
 # Global settings (applied to every syntax)
