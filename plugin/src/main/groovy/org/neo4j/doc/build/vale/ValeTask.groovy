@@ -14,12 +14,22 @@ class ValeTask extends DefaultTask {
     @TaskAction
     def validate() {
         prepare()
-        project.exec {
+        def result = project.exec {
             executable valeExecutable
             workingDir valeWorkingDir
+            standardOutput = new ByteArrayOutputStream()
+            errorOutput = new ByteArrayOutputStream()
+            ext.output = {
+                return standardOutput.toString()
+            }
+            ext.error = {
+                return errorOutput.toString()
+            }
+            ignoreExitValue true
             args([
                     "--glob=${config.glob}",
-                    config.failBuild ? "" : "--no-exit",
+                    "--no-wrap",
+                    "--sort",
                     config.inputPath,
             ])
             if (config.verbose) {
@@ -28,6 +38,9 @@ class ValeTask extends DefaultTask {
                 println "[vale] args: $args"
             }
         }
+
+        processResult(ext.output())
+
     }
 
     def prepare() {
@@ -48,6 +61,8 @@ class ValeTask extends DefaultTask {
             valeExecutable = "./$valeExecutable"
         }
         copyConfig()
+
+
     }
 
     private void copyConfig() {
@@ -72,6 +87,14 @@ class ValeTask extends DefaultTask {
             path
         }
 
+    }
+
+    private void processResult(String output) {
+        def lineNo = 0
+        output.split(System.lineSeparator()).each {
+            logger.warn("${++lineNo}  $it")
+
+        }
     }
 
 }

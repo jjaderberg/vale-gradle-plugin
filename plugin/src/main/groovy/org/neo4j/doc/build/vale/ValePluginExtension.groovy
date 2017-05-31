@@ -4,7 +4,6 @@ class ValePluginExtension {
 
     String glob = '*.{adoc,asciidoc}'
     String inputPath = ""
-    boolean failBuild = false
     boolean verbose = false
 
 }
