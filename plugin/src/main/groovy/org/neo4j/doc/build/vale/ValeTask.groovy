@@ -13,33 +13,36 @@ class ValeTask extends DefaultTask {
 
     @TaskAction
     def validate() {
-        prepare()
-        def result = project.exec {
-            executable valeExecutable
-            workingDir valeWorkingDir
-            standardOutput = new ByteArrayOutputStream()
-            errorOutput = new ByteArrayOutputStream()
-            ext.output = {
-                return standardOutput.toString()
+        if (hasAsciidoctor()) {
+            prepare()
+            def result = project.exec {
+                executable valeExecutable
+                workingDir valeWorkingDir
+                standardOutput = new ByteArrayOutputStream()
+                errorOutput = new ByteArrayOutputStream()
+                ext.output = {
+                    return standardOutput.toString()
+                }
+                ext.error = {
+                    return errorOutput.toString()
+                }
+                ignoreExitValue true
+                args([
+                        "--glob=${config.glob}",
+                        "--no-wrap",
+                        "--sort",
+                        config.inputPath,
+                ])
+                if (config.verbose) {
+                    println "[vale] executable: $executable"
+                    println "[vale] workingDir: $workingDir"
+                    println "[vale] args: $args"
+                }
             }
-            ext.error = {
-                return errorOutput.toString()
-            }
-            ignoreExitValue true
-            args([
-                    "--glob=${config.glob}",
-                    "--no-wrap",
-                    "--sort",
-                    config.inputPath,
-            ])
-            if (config.verbose) {
-                println "[vale] executable: $executable"
-                println "[vale] workingDir: $workingDir"
-                println "[vale] args: $args"
-            }
+            processResult(ext.output())
+        } else {
+            logger.warn("Could not find `asciidoctor`. Aborting vale lint task.")
         }
-
-        processResult(ext.output())
 
     }
 
@@ -107,6 +110,10 @@ class ValeTask extends DefaultTask {
                 logger.quiet(it)
             }
         }
+    }
+
+    private boolean hasAsciidoctor() {
+        return setup.executableExists("asciidoctor")
     }
 
 }
