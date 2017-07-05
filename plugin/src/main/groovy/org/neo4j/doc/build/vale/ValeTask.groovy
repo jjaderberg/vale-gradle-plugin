@@ -43,7 +43,6 @@ class ValeTask extends DefaultTask {
         } else {
             logger.warn("Could not find `asciidoctor`. Aborting vale lint task.")
         }
-
     }
 
     def prepare() {
@@ -64,8 +63,17 @@ class ValeTask extends DefaultTask {
             valeExecutable = "./$valeExecutable"
         }
         copyConfig()
-
-
+        if (!config.logDir.empty) {
+            def l = project.file("${config.logDir}/${new Date().format('yyyy-MM-dd_HH-mm-ss')}_vale.log")
+            if (!l.exists()) {
+                l.createNewFile()
+            }
+            if (l.canWrite()) {
+                OutputStream log = new FileOutputStream(l)
+                getLogging().addStandardOutputListener(log)
+                getLogging().addStandardErrorListener(log)
+            }
+        }
     }
 
     private void copyConfig() {
@@ -96,19 +104,23 @@ class ValeTask extends DefaultTask {
         output.split(System.lineSeparator()).each {
             def parts = it.split(/\s{2,}/)
             if (parts.length > 1) {
-                switch (parts[1]) {
-                    case "warning":
-                        logger.warn(it)
-                        break
-                    case "error":
-                        logger.error(it)
-                        break
-                    default:
-                        logger.quiet(it)
-                }
+                log(it, parts[1])
             } else {
-                logger.quiet(it)
+                log(it, "quiet")
             }
+        }
+    }
+
+    void log(String message, String severity) {
+        switch (severity) {
+            case "warning":
+                logger.warn(message)
+                break
+            case "error":
+                logger.error(message)
+                break
+            default:
+                logger.quiet(message)
         }
     }
 

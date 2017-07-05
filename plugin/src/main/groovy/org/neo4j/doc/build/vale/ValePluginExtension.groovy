@@ -5,5 +5,6 @@ class ValePluginExtension {
     String glob = '*.{adoc,asciidoc}'
     String inputPath = ""
     boolean verbose = false
+    String logDir = ""
 
 }
