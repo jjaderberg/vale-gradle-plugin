@@ -1,0 +1,23 @@
+group 'org.neo4j.doc.build'
+version '1.0-alpha'
+
+dependencies {
+    compile fileTree(dir: 'lib', include: '*.jar')
+}
+
+gradlePlugin {
+    plugins {
+        docbook {
+            id = "org.neo4j.doc.build.docbook"
+            implementationClass = "org.neo4j.doc.build.docbook.DocBookPlugin"
+        }
+    }
+}
+
+publishing {
+    publications {
+        docbookPlugin(MavenPublication) {
+            from components.java
+        }
+    }
+}
