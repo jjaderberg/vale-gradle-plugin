@@ -33,14 +33,15 @@ class XsltTask extends DefaultTask {
             sourceSaxParser:        '-x',
             stylesheetSaxParser:    '-y',
             verbose:                '-t',
+            outFile:                '-o',
     ]
 
     void input(Object input) {
         this.options.input = input
     }
 
-    void output(Object output) {
-        this.options.output = output
+    void outFile(Object file) {
+        this.options.outFile = file
     }
 
     void stylesheet(Object stylesheet) {
@@ -83,17 +84,22 @@ class XsltTask extends DefaultTask {
 
     List<String> makeArguments() {
         List<String> args = []
-        this.options.findAll {
-            !['input', 'output', 'stylesheet', 'usingUrls', 'usingClasspathUrls', 'verbose'].contains(it.key)
-        }.each { o ->
-            args.add(argumentMappings[o.key])
-            args.add(o.value)
-        }
         if (this.options.verbose) {
             args.add("-t")
         }
+        this.options.findAll {
+            !['input', 'outFile', 'stylesheet', 'usingUrls', 'usingClasspathUrls', 'verbose'].contains(it.key)
+        }.each { o ->
+            logger.quiet("[*] adding arg:    key: ${o.key}    value: ${o.value}")
+            args.add(argumentMappings[o.key])
+            args.add(o.value)
+        }
         if (this.options.usingUrls) {
             args.add("-u")
+        }
+        if (this.options.outFile) {
+            args.add("-o")
+            args.add(this.options.outFile)
         }
 
         if (this.options.usingClasspathUrls) {
@@ -115,13 +121,13 @@ class XsltTask extends DefaultTask {
 
     @TaskAction
     def run() {
-        logger.trace("[+] task start")
-        logger.trace("[++] args:")
+        logger.quiet("[+] task start")
+        logger.quiet("[++] args:")
         makeArguments().each {
-            logger.trace("[-]  $it")
+            logger.quiet("[-]  $it")
         }
         StyleSheet.main(makeArguments() as String[])
-        logger.trace("[+] task stop")
+        logger.quiet("[+] task stop")
     }
 
 }

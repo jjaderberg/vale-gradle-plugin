@@ -32,7 +32,7 @@ class TaskUtil {
 
     static Boolean streamHandlerFactorySet = false
     static void registerStreamHandlerFactory() {
-        logger.trace("I was asked to register")
+        logger.quiet("I was asked to register")
         if (streamHandlerFactorySet) {
             println "I will not register because I already did once"
             return
