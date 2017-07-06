@@ -78,6 +78,15 @@ class XsltTask extends DefaultTask {
         this.options.usingClasspathUrls = onoff
     }
 
+    /**
+     * For resolving XIncludes, use a less than antediluvian version of Xerces
+     * by setting some system properties.
+     * See http://www.sagehill.net/docbookxsl/Xinclude.html#JavaXIncludes
+     */
+    void usingXIncludes(boolean onoff) {
+        this.options.usingXIncludes = onoff
+    }
+
     void parameters(Map<String, String> parameters) {
         this.parameters = parameters
     }
@@ -88,7 +97,7 @@ class XsltTask extends DefaultTask {
             args.add("-t")
         }
         this.options.findAll {
-            !['input', 'outFile', 'stylesheet', 'usingUrls', 'usingClasspathUrls', 'verbose'].contains(it.key)
+            !['input', 'outFile', 'stylesheet', 'usingUrls', 'usingClasspathUrls', 'usingXIncludes', 'verbose'].contains(it.key)
         }.each { o ->
             logger.quiet("[*] adding arg:    key: ${o.key}    value: ${o.value}")
             args.add(argumentMappings[o.key])
@@ -104,6 +113,10 @@ class XsltTask extends DefaultTask {
 
         if (this.options.usingClasspathUrls) {
             TaskUtil.registerStreamHandlerFactory()
+        }
+
+        if (this.options.usingXIncludes) {
+            TaskUtil.configureXerces()
         }
 
         args.add(this.options.input)
@@ -128,6 +141,9 @@ class XsltTask extends DefaultTask {
         }
         StyleSheet.main(makeArguments() as String[])
         logger.quiet("[+] task stop")
+        if (this.options.usingXIncludes) {
+            TaskUtil.removeXercesConfig()
+        }
     }
 
 }

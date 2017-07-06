@@ -28,6 +28,12 @@ import java.lang.reflect.Field
 
 class TaskUtil {
 
+    static final xercesConfig = [
+            "javax.xml.parsers.DocumentBuilderFactory": "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl",
+            "javax.xml.parsers.SAXParserFactory": "org.apache.xerces.jaxp.SAXParserFactoryImpl",
+            "org.apache.xerces.xni.parser.XMLParserConfiguration": "org.apache.xerces.parsers.XIncludeParserConfiguration",
+        ]
+
     private static final Logger logger = Logging.getLogger(XsltTask.class)
 
     static Boolean streamHandlerFactorySet = false
@@ -74,6 +80,19 @@ class TaskUtil {
             f.setAccessible(false)
         }
         o
+    }
+
+    static void configureXerces() {
+        xercesConfig.each { k, v ->
+            System.setProperty(k, v)
+
+        }
+    }
+
+    static void removeXercesConfig() {
+        xercesConfig.each { k, v ->
+            System.clearProperty(k)
+        }
     }
 
 }
