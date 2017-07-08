@@ -21,7 +21,7 @@ package org.neo4j.protocol.classpath
 
 import org.apache.log4j.Logger
 import org.junit.Test
-import org.neo4j.doc.build.docbook.TaskUtil
+import org.neo4j.doc.build.xslt.TaskUtil
 
 class HandlerTest extends GroovyTestCase {
 

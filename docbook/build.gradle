@@ -9,8 +9,8 @@ dependencies {
 gradlePlugin {
     plugins {
         docbook {
-            id = "org.neo4j.doc.build.docbook"
-            implementationClass = "org.neo4j.doc.build.docbook.DocBookPlugin"
+            id = "org.neo4j.doc.build.xslt"
+            implementationClass = "org.neo4j.doc.build.xslt.SaxonPlugin"
         }
     }
 }

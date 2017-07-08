@@ -17,12 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.neo4j.doc.build.docbook
+package org.neo4j.doc.build.xslt
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class DocBookPlugin implements Plugin<Project> {
+class SaxonPlugin implements Plugin<Project> {
 
     void apply(Project target) {
         target.task('transform', type: XsltTask)
