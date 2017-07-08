@@ -9,7 +9,7 @@ dependencies {
 gradlePlugin {
     plugins {
         docbook {
-            id = "org.neo4j.doc.build.xslt"
+            id = "org.neo4j.doc.build.saxon"
             implementationClass = "org.neo4j.doc.build.xslt.SaxonPlugin"
         }
     }
@@ -17,7 +17,7 @@ gradlePlugin {
 
 publishing {
     publications {
-        docbookPlugin(MavenPublication) {
+        saxonPlugin(MavenPublication) {
             from components.java
         }
     }
