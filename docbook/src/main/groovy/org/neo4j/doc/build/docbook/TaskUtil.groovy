@@ -34,36 +34,36 @@ class TaskUtil {
             "org.apache.xerces.xni.parser.XMLParserConfiguration": "org.apache.xerces.parsers.XIncludeParserConfiguration",
         ]
 
-    private static final Logger logger = Logging.getLogger(XsltTask.class)
+    private static final Logger logger = Logging.getLogger(TaskUtil.class)
 
     static Boolean streamHandlerFactorySet = false
     static void registerStreamHandlerFactory() {
-        logger.quiet("I was asked to register")
+        logger.debug("I was asked to register")
         if (streamHandlerFactorySet) {
-            println "I will not register because I already did once"
+            logger.debug("I will not register because I already did once")
             return
         }
         try {
-            println "I will now register"
+            logger.debug("I will now register")
             Handler handler = new Handler()
             ConfigurableStreamHandlerFactory factory = new ConfigurableStreamHandlerFactory('classpath', handler)
             URL.setURLStreamHandlerFactory(factory)
             streamHandlerFactorySet = true
-            println "I have now registered"
+            logger.debug("I have now registered")
         } catch (Error maybeFactoryAlreadyDefined) {
             try {
                 Object o = currentUrlStreamHandlerFactory()
                 if (o instanceof ConfigurableStreamHandlerFactory) {
-                    println "Factory is already set correctly"
+                    logger.debug("Factory is already set correctly")
                 } else if(o.getClass().getCanonicalName().equals(ConfigurableStreamHandlerFactory.getCanonicalName())) {
-                    println "I didn't set the factory, but it seems to be set correctly anyway"
+                    logger.debug("I didn't set the factory, but it seems to be set correctly anyway")
                 } else {
                     String type = o.getClass().getCanonicalName()
-                    println "Someone else has set the factory to an object of type: $type"
+                    logger.debug("Someone else has set the factory to an object of type: $type")
                     throw (maybeFactoryAlreadyDefined)
                 }
             } catch (NoSuchFieldException|IllegalAccessException e) {
-                println "I was unable to inspect the current factory"
+                logger.debug("I was unable to inspect the current factory")
                 throw (maybeFactoryAlreadyDefined)
             }
         }
@@ -83,6 +83,7 @@ class TaskUtil {
     }
 
     static void configureXerces() {
+        logger.debug("Configuring Xerces")
         xercesConfig.each { k, v ->
             System.setProperty(k, v)
 
@@ -90,6 +91,7 @@ class TaskUtil {
     }
 
     static void removeXercesConfig() {
+        logger.debug("Removing Xerces configuration")
         xercesConfig.each { k, v ->
             System.clearProperty(k)
         }

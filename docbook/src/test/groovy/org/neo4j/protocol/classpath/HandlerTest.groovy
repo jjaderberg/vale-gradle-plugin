@@ -20,6 +20,7 @@
 package org.neo4j.protocol.classpath
 
 import org.apache.log4j.Logger
+import org.junit.Test
 import org.neo4j.doc.build.docbook.TaskUtil
 
 class HandlerTest extends GroovyTestCase {
@@ -31,6 +32,7 @@ class HandlerTest extends GroovyTestCase {
         TaskUtil.registerStreamHandlerFactory()
     }
 
+    @Test
     void testCanResolveClasspathUrls() {
         final String FILE_PATH = "xml/input1.xml"
         URL classpathUrl = new URL("classpath:$FILE_PATH")
@@ -39,6 +41,7 @@ class HandlerTest extends GroovyTestCase {
         assertEquals("Resolved URLs should be equal", resourceUrl, classpathUrl.openConnection().url)
     }
 
+    @Test
     void testCanHandleMultipleFactorySetsGracefully() {
         // Factory is set once in `setUp()`.
         // Setting it again would trigger a `java.lang.Error`, unless we handle it gracefully.

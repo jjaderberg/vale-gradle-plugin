@@ -120,7 +120,6 @@ class XsltTask extends DefaultTask {
         }
 
         args.add(this.options.input)
-//        args.add(this.options.output)
         args.add(this.options.stylesheet)
         args.addAll(makeParameters())
         args
