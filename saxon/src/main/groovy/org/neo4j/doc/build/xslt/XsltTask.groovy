@@ -20,14 +20,19 @@
 package org.neo4j.doc.build.xslt
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import com.icl.saxon.StyleSheet
 
 class XsltTask extends DefaultTask {
 
+    @Internal
     Map<String, String> options = [:]
+
+    @Internal
     Map<String, String> parameters
 
+    @Internal
     Map<String, String> argumentMappings = [
             uriResolver:            '-r',
             sourceSaxParser:        '-x',
