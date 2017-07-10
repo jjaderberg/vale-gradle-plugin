@@ -4,6 +4,13 @@ version '1.0-alpha'
 subprojects {
     repositories {
         jcenter()
+        maven {
+            url System.env.ARTIFACTORY_URI
+            credentials {
+                username System.env.ARTIFACTORY_USERNAME
+                password System.env.ARTIFACTORY_PASSWORD
+            }
+        }
     }
     apply plugin: 'groovy'
     apply plugin: 'java-gradle-plugin'
