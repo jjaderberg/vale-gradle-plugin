@@ -143,6 +143,7 @@ class XsltTask extends DefaultTask {
         makeArguments().each {
             logger.quiet("[-]  $it")
         }
+        logger.quiet("[+] execute execute execute")
         StyleSheet.main(makeArguments() as String[])
         logger.quiet("[+] task stop")
         if (this.options.usingXIncludes) {

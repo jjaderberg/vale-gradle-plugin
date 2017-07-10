@@ -38,32 +38,32 @@ class TaskUtil {
 
     static Boolean streamHandlerFactorySet = false
     static void registerStreamHandlerFactory() {
-        logger.debug("I was asked to register")
+        logger.quiet("I was asked to register")
         if (streamHandlerFactorySet) {
-            logger.debug("I will not register because I already did once")
+            logger.quiet("I will not register because I already did once")
             return
         }
         try {
-            logger.debug("I will now register")
+            logger.quiet("I will now register")
             Handler handler = new Handler()
             ConfigurableStreamHandlerFactory factory = new ConfigurableStreamHandlerFactory('classpath', handler)
             URL.setURLStreamHandlerFactory(factory)
             streamHandlerFactorySet = true
-            logger.debug("I have now registered")
+            logger.quiet("I have now registered")
         } catch (Error maybeFactoryAlreadyDefined) {
             try {
                 Object o = currentUrlStreamHandlerFactory()
                 if (o instanceof ConfigurableStreamHandlerFactory) {
-                    logger.debug("Factory is already set correctly")
+                    logger.quiet("Factory is already set correctly")
                 } else if(o.getClass().getCanonicalName().equals(ConfigurableStreamHandlerFactory.getCanonicalName())) {
-                    logger.debug("I didn't set the factory, but it seems to be set correctly anyway")
+                    logger.quiet("I didn't set the factory, but it seems to be set correctly anyway")
                 } else {
                     String type = o.getClass().getCanonicalName()
-                    logger.debug("Someone else has set the factory to an object of type: $type")
+                    logger.quiet("Someone else has set the factory to an object of type: $type")
                     throw (maybeFactoryAlreadyDefined)
                 }
             } catch (NoSuchFieldException|IllegalAccessException e) {
-                logger.debug("I was unable to inspect the current factory")
+                logger.quiet("I was unable to inspect the current factory")
                 throw (maybeFactoryAlreadyDefined)
             }
         }
@@ -83,7 +83,7 @@ class TaskUtil {
     }
 
     static void configureXerces() {
-        logger.debug("Configuring Xerces")
+        logger.quiet("Configuring Xerces")
         xercesConfig.each { k, v ->
             System.setProperty(k, v)
 
@@ -91,7 +91,7 @@ class TaskUtil {
     }
 
     static void removeXercesConfig() {
-        logger.debug("Removing Xerces configuration")
+        logger.quiet("Removing Xerces configuration")
         xercesConfig.each { k, v ->
             System.clearProperty(k)
         }
