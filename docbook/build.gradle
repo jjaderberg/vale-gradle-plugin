@@ -1,0 +1,25 @@
+group 'org.neo4j.doc.build'
+version '1.0-alpha01'
+
+dependencies {
+    compile fileTree(dir: 'lib', include: '*.jar')
+    compile "org.neo4j.doc.build:saxon:1.0-alpha01"
+    testCompile "junit:junit:4.11"
+}
+
+gradlePlugin {
+    plugins {
+        docbook {
+            id = "org.neo4j.doc.build.docbook"
+            implementationClass = "org.neo4j.doc.build.docbook.DocBookPlugin"
+        }
+    }
+}
+
+publishing {
+    publications {
+        docBookPlugin(MavenPublication) {
+            from components.java
+        }
+    }
+}
