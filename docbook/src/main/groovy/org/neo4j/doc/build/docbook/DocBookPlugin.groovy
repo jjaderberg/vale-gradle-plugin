@@ -61,22 +61,6 @@ class DocBookPlugin implements Plugin<Project> {
 
         }
 
-        project.task('makeToc', type: XsltTask) {
-
-            def stylesheetName = "xsl/custom/neo/preprocess.xsl"
-            def url = getClass().getClassLoader().getResource(stylesheetName)
-            stylesheet url
-
-            sourceSaxParser "org.apache.xml.resolver.tools.ResolvingXMLReader"
-            stylesheetSaxParser "org.apache.xml.resolver.tools.ResolvingXMLReader"
-            uriResolver "org.apache.xml.resolver.tools.CatalogResolver"
-
-            usingUrls true
-            usingClasspathUrls true
-            if (hasProperty('traceDocbook')) { verbose true }
-
-        }
-
     }
 
 
