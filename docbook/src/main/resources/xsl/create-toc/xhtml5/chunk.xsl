@@ -101,7 +101,11 @@
       $sidebar.append(
         $('<a href="{$neo.frontpage.relpath}" id="logo"><img src="https://neo4j.com/wp-content/themes/neo4jweb/assets/images/neo4j-logo-2015.png" style="max-width:12em;padding-bottom: 0.75em" alt="Neo4j Logo"/></a>')
       );
-      $.get('toc.html', function (d){$(d).appendTo($sidebar);});
+      $.get('toc.html', function (d){
+        $(d).appendTo($sidebar);
+        highlightToc();
+        highlightLibraryHeader();
+      });
       $sidebar.insertAfter($('header').first());
     });
     </script>
