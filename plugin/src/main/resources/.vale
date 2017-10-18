@@ -5,11 +5,12 @@ MinAlertLevel = warning # suggestion, warning or error
 # Global settings (applied to every syntax)
 [*]
 # List of styles to load
-BasedOnStyles = vale, 18F
+# BasedOnStyles = vale, 18F
+BasedOnStyles = Neo
 # Style.Rule = {YES, NO} to enable or disable a specific rule
-vale.Editorializing = YES
+#vale.Editorializing = YES
 # You can also change the level associated with a rule
-vale.Hedging = error
+#vale.Hedging = error
 
 # Syntax-specific settings
 # These overwrite any conflicting global settings
