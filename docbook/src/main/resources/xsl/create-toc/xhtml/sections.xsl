@@ -69,6 +69,24 @@
     </xsl:element>
   </xsl:template>
 
+<!-- ==================================================================== -->
+
+  <!-- 2017-10-18 Override for section to include role of there is one -->
+  <xsl:template match="d:section" mode="class.value">
+    <xsl:param name="class" select="local-name(.)"/>
+    <xsl:variable name="classvalue">
+      <xsl:choose>
+        <xsl:when test="@role">
+          <xsl:value-of select="concat(local-name(.), ' ', @role)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="local-name(.)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:value-of select="$classvalue"/>
+  </xsl:template>
+
 
 </xsl:stylesheet>
 <!-- vim: set sw=2 ts=2: -->
