@@ -18,6 +18,7 @@
   <xsl:import href="lists.xsl" />
   <xsl:import href="glossary.xsl" />
   <xsl:import href="admon.xsl" />
+  <xsl:import href="components.xsl" />
   <xsl:import href="block.xsl" />
   <xsl:import href="sections.xsl" />
   <xsl:import href="callout.xsl" />
