@@ -61,5 +61,7 @@ glossary          toc,title
 
   <xsl:param name="header.rule">0</xsl:param>
 
+  <xsl:param name="neo.embedded.javascript">0</xsl:param>
+
 </xsl:stylesheet>
 <!-- vim: set ts=2 sw=2: -->

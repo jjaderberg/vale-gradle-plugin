@@ -57,5 +57,7 @@ glossary          toc,title
 
   <xsl:param name="formal.object.break.after">0</xsl:param>
 
+  <xsl:param name="neo.embedded.javascript">0</xsl:param>
+
 </xsl:stylesheet>
 <!-- vim: set ts=2 sw=2: -->

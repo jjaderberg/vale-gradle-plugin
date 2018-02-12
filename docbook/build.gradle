@@ -1,5 +1,5 @@
 group 'org.neo4j.doc.build'
-version '1.0-alpha01'
+version '1.0-alpha02'
 
 dependencies {
     compile fileTree(dir: 'lib', include: '*.jar')

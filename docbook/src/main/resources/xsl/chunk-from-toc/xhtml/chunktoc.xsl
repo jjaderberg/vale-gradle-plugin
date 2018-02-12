@@ -192,23 +192,35 @@
 
     <link rel="shortcut icon" href="https://neo4j.com/wp-content/themes/neo4jweb/favicon.ico"/>
 
-    <script>
-    $(document).ready(function() {
-      CodeMirror.colorize();
-      tabTheSource($('body'));
-      var $header = $('header').first();
-      $header.prepend(
-        $('<a href="{$neo.frontpage.relpath}" id="logo"><img src="https://neo4j.com/wp-content/themes/neo4jweb/assets/images/neo4j-logo-2015.png" alt="Neo4j Logo"/></a>')
-      );
-      var $sidebar = $('<div id="sidebar-wrapper"/>');
-      $.get('toc.html', function (d){
-        $(d).appendTo($sidebar);
-        highlightToc();
-        highlightLibraryHeader();
-      });
-      $sidebar.insertAfter($('header').first());
-    });
-    </script>
+    <xsl:choose>
+      <xsl:when test="$neo.embedded.javascript != '0'">
+        <script>
+          <xsl:text>var frontpage_relpath = "</xsl:text>
+          <xsl:value-of select="$neo.frontpage.relpath" />
+          <xsl:text>";</xsl:text>
+          <xsl:value-of select="$neo.embedded.javascript" />
+        </script>
+      </xsl:when>
+      <xsl:otherwise>
+        <script>
+        $(document).ready(function() {
+          CodeMirror.colorize();
+          tabTheSource($('body'));
+          var $header = $('header').first();
+          $header.prepend(
+            $('<a href="{$neo.frontpage.relpath}" id="logo"><img src="https://neo4j.com/wp-content/themes/neo4jweb/assets/images/neo4j-logo-2015.png" alt="Neo4j Logo"/></a>')
+          );
+          var $sidebar = $('<div id="sidebar-wrapper"/>');
+          $.get('toc.html', function (d){
+            $(d).appendTo($sidebar);
+            highlightToc();
+            highlightLibraryHeader();
+          });
+          $sidebar.insertAfter($('header').first());
+        });
+        </script>
+      </xsl:otherwise>
+    </xsl:choose>
 
     <xsl:if test="$neo.search != '0'">
       <xsl:call-template name="neo.search.headcss"/>
