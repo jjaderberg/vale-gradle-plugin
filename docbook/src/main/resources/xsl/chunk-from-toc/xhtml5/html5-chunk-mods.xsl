@@ -30,7 +30,12 @@
     </xsl:variable>
 
     <header>
-      <xsl:call-template name="neo.search.searchbox" />
+      <xsl:if test="$neo.search != '0'">
+        <xsl:call-template name="neo.search.searchbox" />
+      </xsl:if>
+      <xsl:if test="$neo.newsearch != '0'">
+        <xsl:call-template name="neo.newsearch.searchbox" />
+      </xsl:if>
       <!-- And fix up any style atts -->
       <xsl:call-template name="convert.styles">
         <xsl:with-param name="content" select="$content"/>

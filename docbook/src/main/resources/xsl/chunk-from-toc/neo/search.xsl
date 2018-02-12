@@ -10,6 +10,32 @@
 
   <xsl:param name="neo.search" select="0" />
 
+  <xsl:param name="neo.newsearch" select="0" />
+
+  <xsl:template name="neo.newsearch.searchbox">
+    <div class="searchbox">
+      <form id="search-form" class="search" name="search-form" role="search">
+        <input id="search-form-input"
+               name="q"
+               title="search"
+               type="search"
+               lang="en"
+               placeholder="Search Neo4j docs..."
+               aria-label="Search Neo4j documentation"
+               max-length="128"
+               required="required" />
+        <input type="submit" value="Search" />
+      </form>
+    </div>
+  </xsl:template>
+
+  <xsl:template name="neo.newsearch.searchresults">
+    <section id="result">
+      <h2>Results</h2>
+      <ol id="placeholder"></ol>
+    </section>
+  </xsl:template>
+
   <xsl:template name="neo.search.searchbox">
     <div class="gcse searchbox">
       <script>

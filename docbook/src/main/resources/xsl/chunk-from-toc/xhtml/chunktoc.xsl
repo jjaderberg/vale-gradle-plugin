@@ -280,6 +280,9 @@
     <xsl:if test="$neo.search != '0'">
       <xsl:call-template name="neo.search.searchresults" />
     </xsl:if>
+    <xsl:if test="$neo.newsearch != '0'">
+      <xsl:call-template name="neo.newsearch.searchresults" />
+    </xsl:if>
   </xsl:template>
 
 <!-- ============================================================ -->
