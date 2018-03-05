@@ -24,16 +24,14 @@
                aria-label="Search Neo4j documentation"
                max-length="128"
                required="required" />
-        <input type="submit" value="Search" />
+        <input id="search-form-button" type="submit" value="Search" />
       </form>
     </div>
   </xsl:template>
 
   <xsl:template name="neo.newsearch.searchresults">
-    <section id="result">
-      <h2>Results</h2>
-      <ol id="placeholder"></ol>
-    </section>
+    <div id="search-results" class="hidden">
+    </div>
   </xsl:template>
 
   <xsl:template name="neo.search.searchbox">
