@@ -27,6 +27,7 @@
     <xsl:param name="node" select="."/>
     <xsl:variable name="neo.admon.name">
       <xsl:choose>
+        <xsl:when test="@role and @role = 'deprecated'">deprecated</xsl:when>
         <xsl:when test="local-name($node)='note'">note</xsl:when>
         <xsl:when test="local-name($node)='warning'">warning</xsl:when>
         <xsl:when test="local-name($node)='caution'">caution</xsl:when>
@@ -38,7 +39,7 @@
     <div>
       <xsl:call-template name="common.html.attributes">
         <xsl:with-param name="inherit" select="1"/>
-        <xsl:with-param name="class" select="concat('admonitionblock ', local-name(.))"/>
+        <xsl:with-param name="class" select="concat('admonitionblock ', $neo.admon.name)"/>
       </xsl:call-template>
       <xsl:call-template name="id.attribute"/>
       <xsl:if test="$admon.style != '' and $make.clean.html = 0">
