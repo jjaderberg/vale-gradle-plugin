@@ -11,6 +11,7 @@
   <xsl:import href="../neo/search.xsl" />
   <!-- <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/xhtml/chunktoc.xsl"/> -->
   <xsl:import href="copyofdefault-chunktoc.xsl"/>
+  <xsl:import href="../common/olink.xsl" />
   <xsl:import href="html.xsl" />
   <xsl:import href="autotoc.xsl" />
   <xsl:import href="formal.xsl" />
