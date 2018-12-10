@@ -1,5 +1,5 @@
 rootProject.name = 'docs-build-plugin'
-include 'plugin'
+include 'vale'
 include 'saxon'
 include 'docbook'
 include 'test'
